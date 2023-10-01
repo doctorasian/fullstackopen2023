@@ -1,4 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
+
+const Button = ({handleClick, text}) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
+  )
+}
 
 const App = () => {
   const anecdotes = [
@@ -13,10 +20,28 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const initialVotes = new Array(8).fill(0)
+  const [points, setPoints] = useState(initialVotes)
+  const randomInt = () => Math.floor(Math.random() * 8)
+  const max_value_index = points.indexOf(Math.max(...points))
+
+  function updatePoints(points, selected) {
+    const copy = [...points]
+    copy[selected] += 1
+    setPoints( [...copy] )
+  }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
+      <p>Has {points[selected]} votes</p>
+      <br></br>
+      <Button handleClick={() => {updatePoints(points, selected)}} text='vote'/>
+      <Button handleClick={() => {setSelected(randomInt)}} text='next anecdote'/>
+      <h1>Anecdotes with most votes</h1>
+      {anecdotes[max_value_index]}
+      <p>has {points[max_value_index]} votes</p>
     </div>
   )
 }
