@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant client
+    participant server
+
+    client->> server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server->> client: HTML document
+    deactivate server
+
+    client->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server->>client: CSS document
+    deactivate server
+
+    client->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server->>client: Javascript file
+    deactivate server
+
+    client->> server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server->> client: [ { "content": "note", "date": "2023-09-30" }, ... ]
+    deactivate server
+
+    client ->>server: POST data sent as JSON String 
+    activate server
+    server->> client: STATUS 201 Created
+    deactivate server
+
+    Note left of client: Event handler displays new note on page after its creation
