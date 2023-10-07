@@ -12,6 +12,16 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
+  const hook = () => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  }
+
+  useEffect(hook, [])
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
@@ -23,16 +33,6 @@ const App = () => {
   }
 
   const filteredNames = filter ? persons.filter(person => person.name.includes(filter)) : persons
-
-  const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
-  }
-
-  useEffect(hook, [])
 
   return (
     <div>
@@ -48,7 +48,7 @@ const App = () => {
             handleNameChange={handleNameChange} 
             handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Display filteredNames={filteredNames} />
+      <Display filteredNames={filteredNames}/>
     </div>
   )
 }

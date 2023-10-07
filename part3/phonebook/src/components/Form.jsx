@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import axios from 'axios'
 
 const Form = (props) => {
     const addPerson = (event) => {
@@ -9,14 +10,17 @@ const Form = (props) => {
         number: props.newNumber,
         id: props.persons.length + 1
       }
-  
+    
       const addToList = () => {
-        props.setPersons(props.persons.concat([personObject]))
-        props.setNewName('')
-        props.setNewNumber('')
+        axios
+            .post('http://localhost:3001/persons', personObject)
+            .then(response => {
+                props.setPersons(props.persons.concat([response.data]))
+                props.setNewNumber('')
+            })
       }
-  
-      let findEntry = props.persons.find((person) => person.name == props.newName)
+
+      let findEntry = props.persons.find((person) => {return person.name === props.newName})
   
       try{
         if (!(findEntry.name === props.newName)) {
