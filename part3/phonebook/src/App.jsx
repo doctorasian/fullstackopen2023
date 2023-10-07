@@ -2,6 +2,7 @@
 import Filter from './components/Filter'
 import Form from './components/Form'
 import Display from './components/Display'
+import PersonService from './services/PersonService'
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -14,9 +15,10 @@ const App = () => {
 
   const hook = () => {
     axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+      PersonService
+      .getAll()
+      .then(personList => {
+        setPersons(personList)
       })
   }
 

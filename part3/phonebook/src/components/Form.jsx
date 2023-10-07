@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import PersonService from '../services/PersonService'
+
 import axios from 'axios'
 
 const Form = (props) => {
@@ -13,9 +15,10 @@ const Form = (props) => {
     
       const addToList = () => {
         axios
-            .post('http://localhost:3001/persons', personObject)
-            .then(response => {
-                props.setPersons(props.persons.concat([response.data]))
+            PersonService
+            .create(personObject)
+            .then(returnedPersons => {
+                props.setPersons(props.persons.concat([returnedPersons]))
                 props.setNewNumber('')
             })
       }
