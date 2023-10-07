@@ -19,7 +19,12 @@ const Form = (props) => {
             .create(personObject)
             .then(returnedPersons => {
                 props.setPersons(props.persons.concat([returnedPersons]))
+                props.setMessage(`${props.newName} has been added to our registry.`)
+                props.setNewName('')
                 props.setNewNumber('')
+                setTimeout(() => {
+                  props.setMessage(null)
+                }, 5000)
             })
       }
 

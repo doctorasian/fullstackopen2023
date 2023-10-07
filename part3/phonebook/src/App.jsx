@@ -2,6 +2,7 @@
 import Filter from './components/Filter'
 import Form from './components/Form'
 import Display from './components/Display'
+import Notification from './components/Notification'
 import PersonService from './services/PersonService'
 
 import { useState, useEffect } from 'react'
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState('')
 
   const hook = () => {
     axios
@@ -41,8 +43,10 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter filter={filter} handleFilter={handleFilter}/>
       <h2>Add a new number</h2>
+      <Notification message={message}/>
       <Form persons={persons}
             setPersons={setPersons}
+            setMessage={setMessage}
             newName={newName} 
             setNewName={setNewName}
             newNumber={newNumber}

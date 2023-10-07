@@ -8,7 +8,7 @@ const DeleteButton = ({person}) => {
         if (window.confirm(`Are you sure you want to delete ${person.name}?`)){
             axios
             PersonService
-            .deletePerson(person.id)
+            .deletePerson(person)
         }
     }
     return (
